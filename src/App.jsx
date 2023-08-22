@@ -1,12 +1,12 @@
 import './App.css'
-import Gallery from './Components/Gallery/Gallery'
 import Navbar from './Components/Navbar/Navbar'
+import CustomRoutes from './Routes/CustomRoutes'
 
 function App() {
   return(
     <>
       <Navbar/>
-      <Gallery/>
+      <CustomRoutes/>
     </>
   )
 }

@@ -1,31 +1,35 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Card from "../Image-Card/Card";
+import './Gallery.css'
+function Gallery() {
 
-function Gallery(){
+    const [photosData, setPhotosData] = useState([]);
 
-    const [photosData , setPhotosData] = useState([]);
-
-    async function galleryData(){
-        const response = await axios.get('https://api.slingacademy.com/v1/sample-data/photos')
-        const result = response.data.photos;
-        setPhotosData(result);
+    async function galleryData() {
+        try {
+            const response = await axios.get('https://api.slingacademy.com/v1/sample-data/photos?offset=5&limit=20');
+            const result = response.data.photos;
+            setPhotosData(result);
+        } catch (error) {
+            console.error("Error fetching gallery data:", error);
+        }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         galleryData()
-        console.log("hello");
-    },[])
+    }, [])
 
     return (
-        <>
+        <div className="card-wrapper">
             {
-                photosData.map((photo)=>
-                    (
-                        <img src={photo.url} alt="" />
-                    )
+                photosData.map((photo) =>
+                (
+                    <Card image={photo.url} key={photo.id} id={photo.id} />
+                )
                 )
             }
-        </>
+        </div>
     )
 }
 
